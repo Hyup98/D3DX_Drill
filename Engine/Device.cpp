@@ -3,7 +3,6 @@
 
 void Device::Init()
 {
-
 	// D3D12 디버그층 활성화
 	// - VC++ 출력창에 상세한 디버깅 메시지 출력
 	// - riid : 디바이스의 COM ID
