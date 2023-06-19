@@ -1,10 +1,11 @@
 #pragma once
 
-
 enum class COMPONENT_TYPE : uint8
 {
 	TRANSFORM,
 	MESH_RENDERER,
+	CAMERA,
+	// ...
 	MONO_BEHAVIOUR,
 	END,
 };
@@ -13,7 +14,6 @@ enum
 {
 	FIXED_COMPONENT_COUNT = static_cast<uint8>(COMPONENT_TYPE::END) - 1
 };
-
 
 class GameObject;
 class Transform;
@@ -29,6 +29,7 @@ public:
 	virtual void Start() { }
 	virtual void Update() { }
 	virtual void LateUpdate() { }
+	virtual void FinalUpdate() { }
 
 public:
 	COMPONENT_TYPE GetType() { return _type; }
