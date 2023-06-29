@@ -18,8 +18,8 @@ using namespace std;
 namespace fs = std::filesystem;
 
 #include "d3dx12.h"
-#include <d3d12.h>
 #include "SimpleMath.h"
+#include <d3d12.h>
 #include <wrl.h>
 #include <d3dcompiler.h>
 #include <dxgi.h>
@@ -46,18 +46,18 @@ using namespace Microsoft::WRL;
 #endif
 
 // °¢Á¾ typedef
-using int8		= __int8;
-using int16		= __int16;
-using int32		= __int32;
-using int64		= __int64;
-using uint8		= unsigned __int8;
-using uint16	= unsigned __int16;
-using uint32	= unsigned __int32;
-using uint64	= unsigned __int64;
-using Vec2		= DirectX::SimpleMath::Vector2;
-using Vec3		= DirectX::SimpleMath::Vector3;
-using Vec4		= DirectX::SimpleMath::Vector4;
-using Matrix	= DirectX::SimpleMath::Matrix;
+using int8 = __int8;
+using int16 = __int16;
+using int32 = __int32;
+using int64 = __int64;
+using uint8 = unsigned __int8;
+using uint16 = unsigned __int16;
+using uint32 = unsigned __int32;
+using uint64 = unsigned __int64;
+using Vec2 = DirectX::SimpleMath::Vector2;
+using Vec3 = DirectX::SimpleMath::Vector3;
+using Vec4 = DirectX::SimpleMath::Vector4;
+using Matrix = DirectX::SimpleMath::Matrix;
 
 enum class CBV_REGISTER : uint8
 {
@@ -99,9 +99,17 @@ struct WindowInfo
 
 struct Vertex
 {
+	Vertex() {}
+
+	Vertex(Vec3 p, Vec2 u, Vec3 n, Vec3 t)
+		: pos(p), uv(u), normal(n), tangent(t)
+	{
+	}
+
 	Vec3 pos;
-	Vec4 color;
 	Vec2 uv;
+	Vec3 normal;
+	Vec3 tangent;
 };
 
 #define DECLARE_SINGLE(type)		\
@@ -116,7 +124,6 @@ public:								\
 	}								\
 
 #define GET_SINGLE(type)	type::GetInstance()
-
 
 #define DEVICE				GEngine->GetDevice()->GetDevice()
 #define CMD_LIST			GEngine->GetCmdQueue()->GetCmdList()

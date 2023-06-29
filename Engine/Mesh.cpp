@@ -3,6 +3,16 @@
 #include "Engine.h"
 #include "Material.h"
 
+Mesh::Mesh() : Object(OBJECT_TYPE::MESH)
+{
+
+}
+
+Mesh::~Mesh()
+{
+
+}
+
 void Mesh::Init(const vector<Vertex>& vertexBuffer, const vector<uint32>& indexBuffer)
 {
 	CreateVertexBuffer(vertexBuffer);
@@ -14,14 +24,6 @@ void Mesh::Render()
 	CMD_LIST->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	CMD_LIST->IASetVertexBuffers(0, 1, &_vertexBufferView); // Slot: (0~15)
 	CMD_LIST->IASetIndexBuffer(&_indexBufferView);
-
-	// TODO
-	// 1) Buffer에다가 데이터 세팅
-	// 2) TableDescHeap에다가 CBV 전달
-	// 3) 모두 세팅이 끝났으면 TableDescHeap 커밋
-
-	
-
 
 	GEngine->GetTableDescHeap()->CommitTable();
 
