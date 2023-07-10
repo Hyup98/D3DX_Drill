@@ -33,7 +33,7 @@ void Transform::FinalUpdate()
 
 void Transform::PushData()
 {
-TransformParams transformParams = {};
+	TransformParams transformParams = {};
 	transformParams.matWorld = _matWorld;
 	transformParams.matView = Camera::S_MatView;
 	transformParams.matProjection = Camera::S_MatProjection;
