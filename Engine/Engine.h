@@ -11,11 +11,9 @@
 #include "Texture.h"
 #include "RenderTargetGroup.h"
 
-
 class Engine
 {
 public:
-
 	void Init(const WindowInfo& info);
 	void Update();
 
