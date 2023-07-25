@@ -10,7 +10,7 @@ public:
 	virtual ~Transform();
 
 	virtual void FinalUpdate() override;
-	void PushData();
+	void PushGraphicsData();
 
 public:
 	// Parent ±‚¡ÿ
