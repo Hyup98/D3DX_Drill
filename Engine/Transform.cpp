@@ -31,7 +31,7 @@ void Transform::FinalUpdate()
 	}
 }
 
-void Transform::PushGraphicsData()
+void Transform::PushData()
 {
 	TransformParams transformParams = {};
 	transformParams.matWorld = _matWorld;
