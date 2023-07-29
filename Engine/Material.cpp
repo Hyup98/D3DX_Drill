@@ -24,12 +24,13 @@ void Material::PushGraphicsData()
 			continue;
 
 		SRV_REGISTER reg = SRV_REGISTER(static_cast<int8>(SRV_REGISTER::t0) + i);
-		GEngine->GetGraphicsDescHeap()->SetSRV(_textures[i]->GetCpuHandle(), reg);
+		GEngine->GetGraphicsDescHeap()->SetSRV(_textures[i]->GetSRVHandle(), reg);
 	}
 
 	// 파이프라인 세팅
 	_shader->Update();
 }
+
 void Material::PushComputeData()
 {
 	// CBV 업로드
@@ -42,14 +43,12 @@ void Material::PushComputeData()
 			continue;
 
 		SRV_REGISTER reg = SRV_REGISTER(static_cast<int8>(SRV_REGISTER::t0) + i);
-		GEngine->GetComputeDescHeap()->SetSRV(_textures[i]->GetCpuHandle(), reg);
+		GEngine->GetComputeDescHeap()->SetSRV(_textures[i]->GetSRVHandle(), reg);
 	}
 
 	// 파이프라인 세팅
 	_shader->Update();
 }
-
-
 
 void Material::Dispatch(uint32 x, uint32 y, uint32 z)
 {
@@ -62,4 +61,15 @@ void Material::Dispatch(uint32 x, uint32 y, uint32 z)
 	COMPUTE_CMD_LIST->Dispatch(x, y, z);
 
 	GEngine->GetComputeCmdQueue()->FlushComputeCommandQueue();
+}
+
+shared_ptr<Material> Material::Clone()
+{
+	shared_ptr<Material> material = make_shared<Material>();
+
+	material->SetShader(_shader);
+	material->_params = _params;
+	material->_textures = _textures;
+
+	return material;
 }
