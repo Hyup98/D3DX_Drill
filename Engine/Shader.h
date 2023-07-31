@@ -6,8 +6,8 @@ enum class SHADER_TYPE : uint8
 	DEFERRED,
 	FORWARD,
 	LIGHTING,
-	COMPUTE,
 	PARTICLE,
+	COMPUTE,
 	SHADOW,
 };
 
@@ -38,15 +38,6 @@ enum class BLEND_TYPE : uint8
 	END,
 };
 
-struct ShaderArg
-{
-	const string vs = "VS_Main";
-	const string hs;
-	const string ds;
-	const string gs;
-	const string ps = "PS_Main";
-};
-
 struct ShaderInfo
 {
 	SHADER_TYPE shaderType = SHADER_TYPE::FORWARD;
@@ -54,6 +45,15 @@ struct ShaderInfo
 	DEPTH_STENCIL_TYPE depthStencilType = DEPTH_STENCIL_TYPE::LESS;
 	BLEND_TYPE blendType = BLEND_TYPE::DEFAULT;
 	D3D_PRIMITIVE_TOPOLOGY topology = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+};
+
+struct ShaderArg
+{
+	const string vs = "VS_Main";
+	const string hs;
+	const string ds;
+	const string gs;
+	const string ps = "PS_Main";
 };
 
 class Shader : public Object
@@ -64,13 +64,12 @@ public:
 
 	void CreateGraphicsShader(const wstring& path, ShaderInfo info = ShaderInfo(), ShaderArg arg = ShaderArg());
 	void CreateComputeShader(const wstring& path, const string& name, const string& version);
-
+	
 	void Update();
 
 	SHADER_TYPE GetShaderType() { return _info.shaderType; }
 
 	static D3D12_PRIMITIVE_TOPOLOGY_TYPE GetTopologyType(D3D_PRIMITIVE_TOPOLOGY topology);
-
 
 private:
 	void CreateShader(const wstring& path, const string& name, const string& version, ComPtr<ID3DBlob>& blob, D3D12_SHADER_BYTECODE& shaderByteCode);
@@ -87,10 +86,10 @@ private:
 	// GraphicsShader
 	ComPtr<ID3DBlob>					_vsBlob;
 	ComPtr<ID3DBlob>					_hsBlob;
-	ComPtr<ID3DBlob>					_dsBlob;
+	ComPtr<ID3DBlob>					_dsBlob;	
 	ComPtr<ID3DBlob>					_gsBlob;
 	ComPtr<ID3DBlob>					_psBlob;
-	ComPtr<ID3DBlob>					_errBlob;
+	ComPtr<ID3DBlob>					_errBlob;	
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC  _graphicsPipelineDesc = {};
 
 	// ComputeShader

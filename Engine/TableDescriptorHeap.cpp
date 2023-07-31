@@ -120,7 +120,6 @@ void ComputeDescriptorHeap::SetUAV(D3D12_CPU_DESCRIPTOR_HANDLE srcHandle, UAV_RE
 void ComputeDescriptorHeap::CommitTable()
 {
 	ID3D12DescriptorHeap* descHeap = _descHeap.Get();
-	//assert(descHeap == nullptr);
 	COMPUTE_CMD_LIST->SetDescriptorHeaps(1, &descHeap);
 
 	D3D12_GPU_DESCRIPTOR_HANDLE handle = descHeap->GetGPUDescriptorHandleForHeapStart();

@@ -2,7 +2,6 @@
 #include "Input.h"
 #include "Engine.h"
 
-
 void Input::Init(HWND hwnd)
 {
 	_hwnd = hwnd;
@@ -20,14 +19,14 @@ void Input::Update()
 		return;
 	}
 
-	BYTE asciiiKeys[KEY_TYPE_COUNT] = {};
-	if (::GetKeyboardState(asciiiKeys) == false)
+	BYTE asciiKeys[KEY_TYPE_COUNT] = {};
+	if (::GetKeyboardState(asciiKeys) == false)
 		return;
 
 	for (uint32 key = 0; key < KEY_TYPE_COUNT; key++)
 	{
 		// 키가 눌려 있으면 true
-		if (asciiiKeys[key] & 0x80)
+		if (asciiKeys[key] & 0x80)
 		{
 			KEY_STATE& state = _states[key];
 

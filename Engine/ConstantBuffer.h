@@ -44,6 +44,7 @@ private:
 	uint32								_handleIncrementSize = 0;
 
 	uint32					_currentIndex = 0;
+
 	CBV_REGISTER			_reg = {};
 };
 

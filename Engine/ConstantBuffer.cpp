@@ -22,6 +22,7 @@ ConstantBuffer::~ConstantBuffer()
 void ConstantBuffer::Init(CBV_REGISTER reg, uint32 size, uint32 count)
 {
 	_reg = reg;
+
 	// 상수 버퍼는 256 바이트 배수로 만들어야 한다
 	// 0 256 512 768
 	_elementSize = (size + 255) & ~255;
@@ -87,20 +88,8 @@ void ConstantBuffer::PushGraphicsData(void* buffer, uint32 size)
 
 	D3D12_CPU_DESCRIPTOR_HANDLE cpuHandle = GetCpuHandle(_currentIndex);
 	GEngine->GetGraphicsDescHeap()->SetCBV(cpuHandle, _reg);
+
 	_currentIndex++;
-
-}
-
-D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::GetGpuVirtualAddress(uint32 index)
-{
-	D3D12_GPU_VIRTUAL_ADDRESS objCBAddress = _cbvBuffer->GetGPUVirtualAddress();
-	objCBAddress += index * _elementSize;
-	return objCBAddress;
-}
-
-D3D12_CPU_DESCRIPTOR_HANDLE ConstantBuffer::GetCpuHandle(uint32 index)
-{
-	return CD3DX12_CPU_DESCRIPTOR_HANDLE(_cpuHandleBegin, index * _handleIncrementSize);
 }
 
 void ConstantBuffer::SetGraphicsGlobalData(void* buffer, uint32 size)
@@ -121,4 +110,16 @@ void ConstantBuffer::PushComputeData(void* buffer, uint32 size)
 	GEngine->GetComputeDescHeap()->SetCBV(cpuHandle, _reg);
 
 	_currentIndex++;
+}
+
+D3D12_GPU_VIRTUAL_ADDRESS ConstantBuffer::GetGpuVirtualAddress(uint32 index)
+{
+	D3D12_GPU_VIRTUAL_ADDRESS objCBAddress = _cbvBuffer->GetGPUVirtualAddress();
+	objCBAddress += index * _elementSize;
+	return objCBAddress;
+}
+
+D3D12_CPU_DESCRIPTOR_HANDLE ConstantBuffer::GetCpuHandle(uint32 index)
+{
+	return CD3DX12_CPU_DESCRIPTOR_HANDLE(_cpuHandleBegin, index * _handleIncrementSize);
 }
